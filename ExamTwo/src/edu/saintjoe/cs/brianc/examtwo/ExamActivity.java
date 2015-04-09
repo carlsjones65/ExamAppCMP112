@@ -3,6 +3,7 @@ package edu.saintjoe.cs.brianc.examtwo;
 
 
 import com.google.devtools.simple.runtime.components.Component;
+
 import com.google.devtools.simple.runtime.components.HandlesEventDispatching;
 import com.google.devtools.simple.runtime.components.android.Form;
 
@@ -13,37 +14,42 @@ import com.google.devtools.simple.runtime.components.android.TextBox;
 import com.google.devtools.simple.runtime.components.android.AccelerometerSensor;
 
 import com.google.devtools.simple.runtime.events.EventDispatcher;
-
+//imports all of the components that will or may be used in the applicaation
 public class ExamActivity extends Form implements HandlesEventDispatching {
 
-	private HorizontalArrangement line1, line2, line3, line4, line5;
-	private Button incButton;
+	private HorizontalArrangement line1, line2, line3, line4;
+	//these will be the lines that contain our components
+	private Button DoubleButton;
 	private Label resultLabel;
 	private Label promptLabel;
 	private TextBox inputBox;
-	private Label outputLabel;
 	int temp;
 	
 
  void $define() {
+	 //this is essentially the start of the actual code in the app, it takes the place of main
  	
      this.BackgroundColor(COLOR_WHITE);
+     //changes the backgroung color of the app to white
      
      line1 = new HorizontalArrangement(this);
      line2 = new HorizontalArrangement(this);
      line3 = new HorizontalArrangement(this);
      line4 = new HorizontalArrangement(this);
+     //creates the lines that contain the components
 
      
      promptLabel = new Label(line1, "Enter a number:");
+     //makes a label and puts text in it saying enter a number
      inputBox = new TextBox(line1);
      inputBox.NumbersOnly(true);
+     //creates a new textbox and makes sure that only numbers may be entered into it. 
    
-     incButton = new Button(line2,"Increment it:"); 
+     DoubleButton = new Button(line2,"Double It:"); 
+     //makes a new button called doublebutton and sets the text of the button ton double it.
      
      resultLabel = new Label(line3,"");
      
-     outputLabel = new Label(line4, "");
  
      EventDispatcher.registerEventForDelegation(this, "ButtonClick", "Click");
     
@@ -52,17 +58,15 @@ public class ExamActivity extends Form implements HandlesEventDispatching {
  public boolean dispatchEvent(Component component, String id, String eventName,
          Object[] args) {
  	
-	    if (component.equals(incButton) && eventName.equals("Click")){
+	    if (component.equals(DoubleButton) && eventName.equals("Click")){
 	    	temp = Integer.parseInt(inputBox.Text());
-	    	temp += 1;
+	    	temp *= 2;
 	    	resultLabel.Text(String.valueOf(temp));
 	        return true;
 	     } 
+	    //essentially this means when the is clicked on, whatever number is in the InputBox is multiplied by two
 	    
-	    if (component.equals(resultLabel) && eventName.equals("Click")) {
-	    	outputLabel.Text("You pushed me!!");
-	    	return true;
-	    }
+	    
     return true;
 	} 
 } 
